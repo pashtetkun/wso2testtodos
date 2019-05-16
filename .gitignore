@@ -1,0 +1,15 @@
+target
+target-specific
+.idea
+*.iml
+*.im
+*.ipr
+*.iws
+overlays
+.DS_Store
+*.swp
+*.log
+*.fmd
+.cache
+dependency-reduced-pom.xml
+*.versionsBackup

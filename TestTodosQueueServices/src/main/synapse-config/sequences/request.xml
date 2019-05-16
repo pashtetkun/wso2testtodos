@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="request" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="json-eval($.useTestEnv)" name="useTestEnv" scope="default" type="STRING"/>
+    <property expression="json-eval($.todosId)" name="todosId" scope="default" type="STRING"/>
+    <log description="1_log queue incoming" level="full">
+        <property name="message" value="1_log queue incoming"/>
+        <property expression="get-property('useTestEnv')" name="useTestEnvValue"/>
+    </log>
+    <switch source="get-property('useTestEnv')">
+        <case regex="true">
+            <property name="profile" scope="default" type="STRING" value="sandbox"/>
+        </case>
+        <case regex="false">
+            <property name="profile" scope="default" type="STRING" value="production"/>
+        </case>
+        <default>
+            <property name="profile" scope="default" type="STRING" value="production"/>
+        </default>
+    </switch>
+    <log description="2_log queue incoming" level="full">
+        <property name="message" value="2_log queue incoming"/>
+        <property expression="get-property('profile')" name="profileValue"/>
+        <property expression="get-property('todosId')" name="todosIdValue"/>
+    </log>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <header name="Accept" scope="transport" value="application/xml"/>
+    <property expression="get-property('todosId')" name="uri.var.id" scope="default" type="STRING"/>
+    <payloadFactory media-type="json">
+        <format>
+    		{
+    			"profile": "$1"
+    		}
+    	</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('profile')"/>
+        </args>
+    </payloadFactory>
+    <log description="3_log queue incoming before sending to service2" level="full">
+        <property name="message" value="3_log queue incoming before sending to service2"/>
+        <property expression="get-property('profile')" name="profileValue"/>
+        <property expression="json-eval($.)" name="JSON-Payload"/>
+    </log>
+    <call>
+        <endpoint key="TestTodosQueueService2EP"/>
+    </call>
+    <log description="4_log queue incoming after call service2" level="full">
+        <property name="message" value="4_log queue incoming after call service2"/>
+    </log>
+    <!-- remove all transport headers -->
+    <property action="remove" name="TRANSPORT_HEADERS" scope="axis2"/>
+    <!-- remove SOAP-Header SOAPAction -->
+    <header action="remove" name="Action" scope="default"/>
+    <!-- set current timestamp -->
+    <property expression="get-property('SYSTEM_TIME')" name="MSG_SEND_TS" scope="transport" type="STRING"/>
+    <call>
+        <endpoint key="TestTodosQueueToQueue2EP"/>
+    </call>
+    <drop/>
+</sequence>

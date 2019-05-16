@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/recallertesttodosapi" name="TestTodosRecallerAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/todos/{id}">
+        <inSequence>
+            <property expression="json-eval($.profile)" name="profile" scope="default" type="STRING"/>
+            <switch source="get-property('profile')">
+                <case regex="production">
+                    <property expression="get-property('registry','conf:ConsumerKey')" name="key" scope="default" type="STRING"/>
+                    <property expression="get-property('registry','conf:ConsumerSecret')" name="secret" scope="default" type="STRING"/>
+                </case>
+                <case regex="sandbox">
+                    <property expression="get-property('registry','conf:ConsumerKeySandbox')" name="key" scope="default" type="STRING"/>
+                    <property expression="get-property('registry','conf:ConsumerSecretSandbox')" name="secret" scope="default" type="STRING"/>
+                </case>
+                <default>
+                    <property expression="get-property('registry','conf:ConsumerKey')" name="key" scope="default" type="STRING"/>
+                    <property expression="get-property('registry','conf:ConsumerSecret')" name="secret" scope="default" type="STRING"/>
+                </default>
+            </switch>
+            <property expression="base64Encode(fn:concat(get-property('key'),':',get-property('secret')))" name="base64keys" scope="default" type="STRING"/>
+            <log description="log incoming" level="full">
+                <property name="message" value="1_is In sequence for recaller"/>
+                <property expression="$trp:Accept" name="isResponceType"/>
+                <property expression="get-property('key')" name="keyValue"/>
+                <property expression="get-property('secret')" name="secretValue"/>
+                <property expression="get-property('base64keys')" name="base64keysValue"/>
+                <property expression="json-eval($.)" name="JSON-Payload"/>
+                <property expression="get-property('profile')" name="profileValue"/>
+            </log>
+            <property expression="$trp:Accept" name="responceType" scope="default" type="STRING"/>
+            <property name="Accept" scope="transport" type="STRING" value="application/json"/>
+            <property name="HTTP_METHOD" scope="transport" type="STRING" value="POST"/>
+            <header expression="fn:concat('Basic ', get-property('base64keys'))" name="Authorization" scope="transport"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+            <call>
+                <endpoint key="AccessTokenEP"/>
+            </call>
+            <log description="log after get token" level="full">
+                <property name="message" value="2_is In sequence for recaller after get token"/>
+                <property expression="json-eval($.)" name="JSON-Payload"/>
+            </log>
+            <property name="HTTP_METHOD" scope="transport" type="STRING" value="GET"/>
+            <property expression="json-eval($.access_token)" name="access_token" scope="default" type="STRING"/>
+            <header expression="fn:concat('Bearer ', get-property('access_token'))" name="Authorization" scope="transport"/>
+            <header name="Content-Type" scope="transport" value="application/json"/>
+            <header name="Accept" scope="transport" value="application/json"/>
+            <switch source="get-property('profile')">
+                <case regex="production">
+                    <call>
+                        <endpoint key="TestTodosRecallerEP"/>
+                    </call>
+                </case>
+                <case regex="sandbox">
+                    <call>
+                        <endpoint key="TestTodosRecallerSandboxEP"/>
+                    </call>
+                </case>
+                <default>
+                    <call>
+                        <endpoint key="TestTodosRecallerEP"/>
+                    </call>
+                </default>
+            </switch>
+            <log description="log after call api" level="full">
+                <property name="message" value="3_is In sequence for recaller after call api"/>
+                <property expression="json-eval($.)" name="JSON-Payload"/>
+                <property expression="get-property('responceType')" name="isRespType"/>
+            </log>
+            <switch source="get-property('responceType')">
+                <case regex="application/xml">
+                    <property name="messageType" scope="axis2" type="STRING" value="application/xml"/>
+                </case>
+                <default>
+                    <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+                </default>
+            </switch>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

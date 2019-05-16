@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/testtodos" name="TestTodosAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/todos/{id}">
+        <inSequence>
+            <log description="log requests" level="full">
+                <property name="message" value="is In message new3!!!"/>
+            </log>
+            <call>
+                <endpoint key="TestTodosEP"/>
+            </call>
+            <respond/>
+        </inSequence>
+        <outSequence>
+            <log description="log responses" level="full">
+                <property name="message" value="is Out message"/>
+            </log>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>

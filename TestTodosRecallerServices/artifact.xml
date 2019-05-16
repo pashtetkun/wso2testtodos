@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="TestTodosRecallerEP" groupId="com.example.TestTodosRecallerServices.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/TestTodosRecallerEP.xml</file>
+    </artifact>
+    <artifact name="TestTodosRecallerAPI" groupId="com.example.TestTodosRecallerServices.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/TestTodosRecallerAPI.xml</file>
+    </artifact>
+    <artifact name="accessToken" groupId="com.example.TestTodosRecallerServices.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/local-entries/accessToken.xml</file>
+    </artifact>
+    <artifact name="AccessTokenEP" groupId="com.example.TestTodosRecallerServices.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/AccessTokenEP.xml</file>
+    </artifact>
+    <artifact name="ConsumerKeys" groupId="com.example.TestTodosRecallerServices.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/local-entries/ConsumerKeys.xml</file>
+    </artifact>
+    <artifact name="ResponceTypeLocalEntry" groupId="com.example.TestTodosRecallerServices.local-entry" version="1.0.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/local-entries/ResponceTypeLocalEntry.xml</file>
+    </artifact>
+    <artifact name="TestTodosRecallerSandboxEP" groupId="com.example.TestTodosRecallerServices.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/TestTodosRecallerSandboxEP.xml</file>
+    </artifact>
+</artifacts>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="FileProxy2" startOnLoad="true" transports="vfs http https" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <property expression="get-property('transport','FILE_NAME')" name="filename" scope="default" type="STRING"/>
+            <property expression="json-eval($.binary)" name="fileContent" scope="default" type="STRING"/>
+            <log level="full">
+                <property name="message" value="File Proxy 2 In"/>
+                <property expression="get-property('filename')" name="filenameValue"/>
+            </log>
+            <!-- create new payload -->
+            <payloadFactory media-type="xml">
+                <format>
+                    <root>
+                        <file charset="US-ASCII" content-type="application/octet-stream" filename="$1" name="file" xmlns="http://org.apache.axis2/xsd/form-data">$2</file>
+                    </root>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:filename"/>
+                    <arg evaluator="xml" expression="$ctx:fileContent"/>
+                </args>
+            </payloadFactory>
+            <!-- it will invoke the multipart/form-data formatter and send out as a multipart/ form-data message -->
+            <property name="messageType" scope="axis2" type="STRING" value="multipart/form-data"/>
+            <log level="custom">
+                <property name="message" value="before send to Upload Proxy"/>
+            </log>
+            <property name="HTTP_METHOD" scope="transport" type="STRING" value="POST"/>
+            <header name="Content-Type" scope="transport" value="multipart/form-data"/>
+            <call>
+                <endpoint>
+                    <http method="post" uri-template="http://localhost:8280/uploadFile"/>
+                </endpoint>
+            </call>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+    <parameter name="transport.vfs.Streaming">true</parameter>
+    <parameter name="transport.PollInterval">10</parameter>
+    <parameter name="transport.vfs.FileURI">vfs:file:///C:/8out</parameter>
+    <parameter name="transport.vfs.ContentType">application/octet-stream</parameter>
+    <parameter name="transport.vfs.ActionAfterProcess">DELETE</parameter>
+    <parameter name="transport.vfs.FileNamePattern">.*\.*</parameter>
+</proxy>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="AccessTokenEP" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="post" trace="enable" uri-template="https://192.168.1.48:8245/token?scope=openid&amp;grant_type=client_credentials"/>
+</endpoint>

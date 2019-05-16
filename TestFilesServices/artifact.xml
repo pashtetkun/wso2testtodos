@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="FileProxy" groupId="com.example.TestFilesServices.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/FileProxy.xml</file>
+    </artifact>
+    <artifact name="TestFileTask" groupId="com.example.TestFilesServices.task" version="1.0.0" type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/TestFileTask.xml</file>
+    </artifact>
+    <artifact name="fileCopySequence" groupId="com.example.TestFilesServices.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/fileCopySequence.xml</file>
+    </artifact>
+    <artifact name="FileProxy2" groupId="com.example.TestFilesServices.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/FileProxy2.xml</file>
+    </artifact>
+    <artifact name="UploadProxy" groupId="com.example.TestFilesServices.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/UploadProxy.xml</file>
+    </artifact>
+    <artifact name="UploadFileApi" groupId="com.example.TestFilesServices.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/UploadFileApi.xml</file>
+    </artifact>
+</artifacts>

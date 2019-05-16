@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="FileProxy" startOnLoad="true" transports="vfs" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <property expression="get-property('transport','FILE_NAME')" name="filename" scope="default" type="STRING"/>
+            <log level="custom">
+                <property expression="get-property('filename')" name="filenameValue"/>
+            </log>
+            <property expression="get-property('filename')" name="transport.vfs.ReplyFileName" scope="transport" type="STRING"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property action="remove" name="ClientApiNonBlocking" scope="axis2"/>
+            <send>
+                <endpoint>
+                    <address uri="vfs:file:///C:/8out"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+    <parameter name="transport.vfs.Streaming">true</parameter>
+    <parameter name="transport.PollInterval">10</parameter>
+    <parameter name="transport.vfs.FileURI">vfs:file:///C:/8in</parameter>
+    <parameter name="transport.vfs.ContentType">application/octet-stream</parameter>
+    <parameter name="transport.vfs.ActionAfterProcess">DELETE</parameter>
+    <parameter name="transport.vfs.FileNamePattern">.*\.*</parameter>
+    <parameter name="transport.vfs.MoveAfterProcess">vfs:file:///C:/8in_flush</parameter>
+</proxy>

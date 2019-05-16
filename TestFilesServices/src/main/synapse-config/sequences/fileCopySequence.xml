@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="fileCopySequence" statistics="enable" trace="enable" xmlns="http://ws.apache.org/ns/synapse">
+    <fileconnector.copy>
+        <source>file:///C:/9in</source>
+        <destination>file:///C:/9out</destination>
+        <includeParentDirectory>false</includeParentDirectory>
+    </fileconnector.copy>
+    <fileconnector.delete>
+        <source>file:///C:/9in</source>
+    </fileconnector.delete>
+    <drop/>
+</sequence>
