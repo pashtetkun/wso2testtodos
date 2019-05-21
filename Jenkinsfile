@@ -22,7 +22,7 @@ pipeline {
 		stage ('Deploy') {
             steps {
 				dir('TestTodosServicesCompositeApplication') {
-                    sh 'mvn clean deploy -Dmaven.deploy.skip=true -Dmaven.car.deploy.skip=false' 
+                    sh 'mvn clean deploy -Dmaven.deploy.skip=true -Dmaven.car.deploy.skip=false -DserverUrl=https://localhost:9443 -DserverUser=admin -DserverPassword=123456' 
                 } 
             }
             post {

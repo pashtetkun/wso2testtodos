@@ -104,9 +104,9 @@
               <trustStorePath>${basedir}/../resources/client-truststore.jks</trustStorePath>
               <trustStorePassword>wso2carbon</trustStorePassword>
               <trustStoreType>JKS</trustStoreType>
-              <serverUrl>https://localhost:9443</serverUrl>
-              <userName>admin</userName>
-              <password>admin</password>
+              <serverUrl>{serverUrl}</serverUrl>
+              <userName>{serverUser}</userName>
+              <password>{serverPassword}</password>
               <operation>deploy</operation>
             </CarbonServer>
           </carbonServers>
