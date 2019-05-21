@@ -101,15 +101,16 @@
         <configuration>
           <carbonServers>
             <CarbonServer>
-              <trustStorePath>${basedir}/src/main/resources/security/client-truststore.jks</trustStorePath>
+              <trustStorePath>${basedir}/./resources/client-truststore.jks</trustStorePath>
               <trustStorePassword>wso2carbon</trustStorePassword>
               <trustStoreType>JKS</trustStoreType>
-              <serverUrl>https://localhost:9445</serverUrl>
+              <serverUrl>https://localhost:9443</serverUrl>
               <userName>admin</userName>
               <password>admin</password>
               <operation>deploy</operation>
             </CarbonServer>
           </carbonServers>
+          <archiveLocation>${basedir}/target/TestTodosServicesCompositeApplication_1.0.0.car</archiveLocation>
         </configuration>
       </plugin>
     </plugins>
