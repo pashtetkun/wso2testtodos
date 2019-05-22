@@ -3,7 +3,7 @@
     <resource methods="GET" uri-template="/todos/{id}">
         <inSequence>
             <log description="log requests" level="full">
-                <property name="message" value="is In message new5!!!"/>
+                <property name="message" value="is In message new6!!!"/>
             </log>
             <call>
                 <endpoint key="TestTodosEP"/>
