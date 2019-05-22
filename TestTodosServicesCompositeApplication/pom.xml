@@ -110,7 +110,7 @@
               <operation>deploy</operation>
             </CarbonServer>
           </carbonServers>
-          <archiveLocation>${basedir}/target/TestTodosServicesCompositeApplication_1.0.0.car</archiveLocation>
+          <archiveLocation>${basedir}/target/TestTodosServicesCompositeApplication_${project.version}.car</archiveLocation>
         </configuration>
       </plugin>
     </plugins>
