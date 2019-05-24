@@ -6,6 +6,7 @@ pipeline {
     }
     stages {
 		
+		/*
 		stage ('Build') {
             steps {
 				dir('TestTodosServices') {
@@ -18,6 +19,7 @@ pipeline {
                 }
             }
         }
+		*/
 		
 		stage ('Deploy') {
             steps {
