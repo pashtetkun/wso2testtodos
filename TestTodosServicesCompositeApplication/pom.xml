@@ -100,7 +100,7 @@
         <executions>
           <execution>
             <id>copy-file</id>
-            <phase>generate-sources</phase>
+            <phase>deploy</phase>
             <goals>
               <goal>copy</goal>
             </goals>
