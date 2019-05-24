@@ -8,6 +8,9 @@
   <packaging>carbon/application</packaging>
   <name>TestTodosServicesCompositeApplication</name>
   <description>TestTodosServicesCompositeApplication</description>
+  <scm>
+    <connection>scm:git:https://github.com/pashtetkun/wso2testtodos.git</connection>
+  </scm>
   <properties>
     <com.example.TestTodosServices.endpoint_._TestTodosEP>capp/EnterpriseServiceBus</com.example.TestTodosServices.endpoint_._TestTodosEP>
     <com.example.TestTodosServices.api_._TestTodosAPI>capp/EnterpriseServiceBus</com.example.TestTodosServices.api_._TestTodosAPI>
@@ -130,6 +133,55 @@
           </carbonServers>
           <archiveLocation>${basedir}/target/${project.artifactId}.car</archiveLocation>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+          <developmentVersion>${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.0-SNAPSHOT</developmentVersion>
+          <branchName>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}</branchName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>parse-versions-for-release</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>parse-version</goal>
+            </goals>
+            <configuration>
+              <propertyPrefix>parsedVersion</propertyPrefix>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <echo>Major: ${parsedVersion.majorVersion}</echo>
+                <echo>Minor: ${parsedVersion.minorVersion}</echo>
+                <echo>Next Minor: ${parsedVersion.nextMinorVersion}</echo>
+                <echo>Incremental: ${parsedVersion.incrementalVersion}</echo>
+                <echo>Qualifier: ${parsedVersion.qualifier}</echo>
+                <echo>BuildNumber: ${parsedVersion.buildNumber}</echo>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
