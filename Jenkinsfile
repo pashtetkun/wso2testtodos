@@ -24,7 +24,7 @@ pipeline {
 		stage ('Deploy') {
             steps {
 				dir('TestTodosServicesCompositeApplication') {
-                    sh 'mvn clean deploy -Dmaven.deploy.skip=true -Dmaven.car.deploy.skip=false -DserverUrl=${DEPLOY_SERVER_URL} -DuserName=${DEPLOY_SERVER_USER} -Dpassword=${DEPLOY_SERVER_PASSWORD}' 
+                    sh 'mvn clean deploy -Dmaven.deploy.skip=true -Dmaven.car.deploy.skip=false -DserverUrl=${DEPLOY_SERVER_URL} DuserName=${DEPLOY_SERVER_USER} -Dpassword=${DEPLOY_SERVER_PASSWORD}'
                 } 
             }
             post {
