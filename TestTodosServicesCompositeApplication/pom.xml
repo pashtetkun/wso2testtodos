@@ -128,7 +128,7 @@
               <operation>deploy</operation>
             </CarbonServer>
           </carbonServers>
-          <archiveLocation>${basedir}/${project.artifactId}.car</archiveLocation>
+          <archiveLocation>${basedir}/target/${project.artifactId}.car</archiveLocation>
         </configuration>
       </plugin>
     </plugins>
